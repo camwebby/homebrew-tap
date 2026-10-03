@@ -1,0 +1,63 @@
+class Zdb < Formula
+  desc "A keyboard-first terminal UI database client for PostgreSQL, MySQL and SQLite"
+  homepage "https://github.com/camwebby/zdb"
+  version "0.1.0"
+  if OS.mac?
+    if Hardware::CPU.arm?
+      url "https://github.com/camwebby/zdb/releases/download/v0.1.0/zdb-aarch64-apple-darwin.tar.xz"
+      sha256 "0347a896aac4e46bfb61d6078237063ac8dc3b9e26e6161c186c645f248a8ce2"
+    end
+    if Hardware::CPU.intel?
+      url "https://github.com/camwebby/zdb/releases/download/v0.1.0/zdb-x86_64-apple-darwin.tar.xz"
+      sha256 "0f568ad24ccd6ea9c28e6aba063b32ba78a13caea45fb66276ca2ae80423bcee"
+    end
+  end
+  if OS.linux? && Hardware::CPU.intel?
+    url "https://github.com/camwebby/zdb/releases/download/v0.1.0/zdb-x86_64-unknown-linux-gnu.tar.xz"
+    sha256 "0f739746859249545984e1c8b1dd6a2cd49299836f953d72990939970c0b6479"
+  end
+  license "MIT"
+
+  BINARY_ALIASES = {
+    "aarch64-apple-darwin":     {},
+    "x86_64-apple-darwin":      {},
+    "x86_64-unknown-linux-gnu": {},
+  }.freeze
+
+  def target_triple
+    cpu = Hardware::CPU.arm? ? "aarch64" : "x86_64"
+    os = OS.mac? ? "apple-darwin" : "unknown-linux-gnu"
+
+    "#{cpu}-#{os}"
+  end
+
+  def install_binary_aliases!
+    BINARY_ALIASES[target_triple.to_sym].each do |source, dests|
+      dests.each do |dest|
+        bin.install_symlink bin/source.to_s => dest
+      end
+    end
+  end
+
+  def install
+    if OS.mac? && Hardware::CPU.arm?
+      bin.install "zdb"
+    end
+    if OS.mac? && Hardware::CPU.intel?
+      bin.install "zdb"
+    end
+    if OS.linux? && Hardware::CPU.intel?
+      bin.install "zdb"
+    end
+
+    install_binary_aliases!
+
+    # Homebrew will automatically install these, so we don't need to do that
+    doc_files = Dir["README.*", "readme.*", "LICENSE", "LICENSE.*", "CHANGELOG.*"]
+    leftover_contents = Dir["*"] - doc_files
+
+    # Install any leftover files in pkgshare; these are probably config or
+    # sample files.
+    pkgshare.install(*leftover_contents) unless leftover_contents.empty?
+  end
+end
