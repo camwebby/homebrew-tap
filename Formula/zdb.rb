@@ -1,20 +1,20 @@
 class Zdb < Formula
   desc "A keyboard-first terminal UI database client for PostgreSQL, MySQL and SQLite"
   homepage "https://github.com/camwebby/zdb"
-  version "0.1.2"
+  version "0.1.3"
   if OS.mac?
     if Hardware::CPU.arm?
-      url "https://github.com/camwebby/zdb/releases/download/v0.1.2/zdb-aarch64-apple-darwin.tar.xz"
-      sha256 "07af3e09ead8114342cfa4c69177451606e0ef7d4aceb0520376d97c1af00b61"
+      url "https://github.com/camwebby/zdb/releases/download/v0.1.3/zdb-aarch64-apple-darwin.tar.xz"
+      sha256 "c9e4cbb6e117fc4023ad6ce410be0cbf3ce986ea2500f20497e61c5baaf04855"
     end
     if Hardware::CPU.intel?
-      url "https://github.com/camwebby/zdb/releases/download/v0.1.2/zdb-x86_64-apple-darwin.tar.xz"
-      sha256 "aae32a2108dc94551ec641354765a9f78309de6d929eda33d0342774c4bfa6f9"
+      url "https://github.com/camwebby/zdb/releases/download/v0.1.3/zdb-x86_64-apple-darwin.tar.xz"
+      sha256 "d3878923137a6c476bd9aa43516e9cd2faa4800bbfa1bfd14ebc27352c22a032"
     end
   end
   if OS.linux? && Hardware::CPU.intel?
-    url "https://github.com/camwebby/zdb/releases/download/v0.1.2/zdb-x86_64-unknown-linux-gnu.tar.xz"
-    sha256 "85d2e339a3dba0581adbfaece0daa4cf2c0b90278f1251d56094a3daf5032912"
+    url "https://github.com/camwebby/zdb/releases/download/v0.1.3/zdb-x86_64-unknown-linux-gnu.tar.xz"
+    sha256 "40fa3ae47f753f1a0808b3b76200c953e744e9af62570364e8ca7af3cea197dd"
   end
   license "MIT"
 
